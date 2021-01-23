@@ -59,7 +59,6 @@ namespace teste.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             _repo.Delete(id);
-
             return RedirectToAction("Index");
         }
     }
