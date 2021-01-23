@@ -1,24 +1,35 @@
-@using teste.Models
+@model IEnumerable<Category>
 @{
     ViewData["Title"] = "Categorias";
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nome</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Category cat in Model)
-        {
+<div container>
+    <nav class="row pt-4">
+        <h1 class=col-6>Categorias</h1>
+        <a asp-controller=Category asp-action=Create class="text-rigth col-6 btn btn-primary">Criar</a>
+    </nav>
+    <table class="table" title="Categorias">
+        <thead>
             <tr>
-                <th scope="row">1</th>
-                <td>@cat.Id</td>
-                <td>@cat.Name</td>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Op</th>
             </tr>
-        }
-        <script>console.log(Model)</script>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (Category cat in Model)
+            {
+                <tr>
+                    <td width="50%">@cat.Id</td>
+                    <td width="30%">@cat.Name</td>
+                    <td class="text-center">
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-action="Edit" asp-route-Id="@cat.Id" class="btn btn-warning mx-2">Editar</a>
+                            <a asp-action="Delete" asp-route-Id="@cat.Id" class="btn btn-danger">Excluir</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

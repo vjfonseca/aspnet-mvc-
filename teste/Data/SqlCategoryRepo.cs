@@ -7,6 +7,7 @@ namespace teste.Data
 {
     public class SqlCategoryRepo : ICategoryRepo
     {
+
         private readonly TesteContext context;
         public SqlCategoryRepo(TesteContext ctx)
         {
@@ -19,9 +20,18 @@ namespace teste.Data
             return context.Categories.Single(x => x.Id == cat.Id);
         }
 
+        public bool Delete(int id)
+        {
+            var cat = Get(id);
+            context.Categories.Remove(cat);
+            var check = context.Categories.First(x => x.Id == id);
+            var entries = context.SaveChanges();
+            return entries == 1;
+        }
+
         public Category Get(int id)
         {
-            var d = context.Categories.FirstOrDefault(x=>x.Id ==id);
+            var d = context.Categories.Single(x => x.Id == id);
             return d;
         }
 
@@ -30,5 +40,11 @@ namespace teste.Data
             var d = context.Categories.ToList();
             return d;
         }
+
+        public bool Update(Category cat)
+        {
+            context.Update(cat);
+            return context.SaveChanges() == 1;
+        }
     }
-}   
+}
